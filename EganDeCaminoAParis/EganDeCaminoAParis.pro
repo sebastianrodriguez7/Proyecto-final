@@ -9,7 +9,12 @@ CONFIG += c++17
 SOURCES += \
     Logica/egan.cpp \
     Logica/entidad.cpp \
+    Logica/fisicaparabolica.cpp \
     Logica/fisicapendiente.cpp \
+    Logica/gestorobstaculos.cpp \
+    Logica/granizo.cpp \
+    Logica/proyectil.cpp \
+    Logica/roca.cpp \
     Logica/terreno.cpp \
     gui/mainwindow.cpp \
     gui/nivel1.cpp \
@@ -18,7 +23,12 @@ SOURCES += \
 HEADERS += \
     Logica/egan.h \
     Logica/entidad.h \
+    Logica/fisicaparabolica.h \
     Logica/fisicapendiente.h \
+    Logica/gestorobstaculos.h \
+    Logica/granizo.h \
+    Logica/proyectil.h \
+    Logica/roca.h \
     Logica/terreno.h \
     gui/mainwindow.h \
     gui/nivel1.h
