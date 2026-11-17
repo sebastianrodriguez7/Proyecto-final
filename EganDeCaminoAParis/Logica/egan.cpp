@@ -7,7 +7,8 @@ Egan::Egan(double x, double y, int carril, int numCarriles)
     energia(ENERGIA_MAX),
     pedaleoFuerte(false),
     enPajara(false),
-    tiempoPajara(0)
+    tiempoPajara(0),
+    pendiente(0)
 {
     if (numCarriles < 1 || numCarriles > MAX_CARRILES)
         throw std::invalid_argument("Numero de carriles invalido para Egan");
@@ -15,8 +16,17 @@ Egan::Egan(double x, double y, int carril, int numCarriles)
         throw std::out_of_range("Carril inicial mayor al numero de carriles del nivel");
 }
 
+double Egan::calcularAPedal() const
+{
+    double a = pedaleoFuerte ? A_PEDAL_FUERTE : A_PEDAL_NORMAL;
+    if (pendiente > UMBRAL_ESCALADOR)
+        a *= BONO_ESCALADOR;
+    return a;
+}
+
 void Egan::actualizar(double dt)
 {
+    // 1. Energía y pájara
     if (enPajara) {
         tiempoPajara -= dt;
         if (tiempoPajara <= 0) {
@@ -32,6 +42,13 @@ void Egan::actualizar(double dt)
             pedaleoFuerte = false;
         }
     }
+
+    // 2. Física de la pendiente
+    vx = fisica.actualizarVelocidad(vx, calcularAPedal(), pendiente, dt);
+    if (enPajara && vx > VELOCIDAD_PAJARA)
+        vx = VELOCIDAD_PAJARA;
+
+    // 3. Movimiento
     x += vx * dt;
     y += vy * dt;
 }
@@ -43,10 +60,8 @@ void Egan::cambiarCarril(int direccion)
         carril = nuevo;
 }
 
-void Egan::setPedaleoFuerte(bool activo)
-{
-    pedaleoFuerte = activo && !enPajara;
-}
+void Egan::setPedaleoFuerte(bool activo) { pedaleoFuerte = activo && !enPajara; }
+void Egan::setPendiente(double grados) { pendiente = grados; }
 
 void Egan::recuperarEnergia(double cantidad)
 {
@@ -56,3 +71,4 @@ void Egan::recuperarEnergia(double cantidad)
 
 double Egan::getEnergia() const { return energia; }
 bool Egan::estaEnPajara() const { return enPajara; }
+double Egan::getPendiente() const { return pendiente; }
