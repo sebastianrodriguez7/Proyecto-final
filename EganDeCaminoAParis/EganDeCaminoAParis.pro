@@ -7,11 +7,15 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Logica/entidad.cpp \
     gui/mainwindow.cpp \
+    gui/nivel1.cpp \
     main.cpp
 
 HEADERS += \
-    gui/mainwindow.h
+    Logica/entidad.h \
+    gui/mainwindow.h \
+    gui/nivel1.h
 
 FORMS += \
     gui/mainwindow.ui
