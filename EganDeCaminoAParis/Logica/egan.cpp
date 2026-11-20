@@ -94,6 +94,13 @@ void Egan::recuperarEnergia(double cantidad)
     if (energia > ENERGIA_MAX) energia = ENERGIA_MAX;
 }
 
+void Egan::setMultiplicadorConsumo(double multiplicador)
+{
+    if (multiplicador <= 0)
+        throw std::invalid_argument("El multiplicador de consumo debe ser positivo");
+    multiplicadorConsumo = multiplicador;
+}
+
 void Egan::saltar()
 {
     if (enSalto || tambaleando) return;
