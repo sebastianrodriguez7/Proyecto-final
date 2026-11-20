@@ -16,6 +16,7 @@ SOURCES += \
     Logica/fisicapendiente.cpp \
     Logica/gestorobstaculos.cpp \
     Logica/granizo.cpp \
+    Logica/logicanivel1.cpp \
     Logica/proyectil.cpp \
     Logica/roca.cpp \
     Logica/terreno.cpp \
@@ -33,6 +34,7 @@ HEADERS += \
     Logica/fisicapendiente.h \
     Logica/gestorobstaculos.h \
     Logica/granizo.h \
+    Logica/logicanivel1.h \
     Logica/proyectil.h \
     Logica/roca.h \
     Logica/terreno.h \
