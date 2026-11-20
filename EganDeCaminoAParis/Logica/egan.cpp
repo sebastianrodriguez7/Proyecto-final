@@ -8,7 +8,13 @@ Egan::Egan(double x, double y, int carril, int numCarriles)
     pedaleoFuerte(false),
     enPajara(false),
     tiempoPajara(0),
-    pendiente(0)
+    pendiente(0),
+    fisicaSalto(9.8, 0.0),
+    enSalto(false),
+    tambaleando(false),
+    amplitudTambaleo(0),
+    tiempoTambaleo(0),
+    golpes(0)
 {
     if (numCarriles < 1 || numCarriles > MAX_CARRILES)
         throw std::invalid_argument("Numero de carriles invalido para Egan");
@@ -26,7 +32,7 @@ double Egan::calcularAPedal() const
 
 void Egan::actualizar(double dt)
 {
-    // 1. Energía y pájara
+
     if (enPajara) {
         tiempoPajara -= dt;
         if (tiempoPajara <= 0) {
@@ -43,18 +49,37 @@ void Egan::actualizar(double dt)
         }
     }
 
-    // 2. Física de la pendiente
+
+    if (tambaleando) {
+        tiempoTambaleo += dt;
+        if (tiempoTambaleo >= DURACION_TAMBALEO) {
+            tambaleando = false;
+            tiempoTambaleo = 0;
+        }
+    }
+
     vx = fisica.actualizarVelocidad(vx, calcularAPedal(), pendiente, dt);
     if (enPajara && vx > VELOCIDAD_PAJARA)
         vx = VELOCIDAD_PAJARA;
 
-    // 3. Movimiento
+
+    if (enSalto) {
+        double xLocal = 0, vxLocal = 0;
+        fisicaSalto.paso(xLocal, y, vxLocal, vy, dt);
+        if (y <= 0 && vy <= 0) {
+            y = 0;
+            vy = 0;
+            enSalto = false;
+        }
+    }
+
+
     x += vx * dt;
-    y += vy * dt;
 }
 
 void Egan::cambiarCarril(int direccion)
 {
+    if (tambaleando) return;
     int nuevo = carril + direccion;
     if (nuevo >= 1 && nuevo <= numCarriles)
         carril = nuevo;
@@ -69,6 +94,36 @@ void Egan::recuperarEnergia(double cantidad)
     if (energia > ENERGIA_MAX) energia = ENERGIA_MAX;
 }
 
+void Egan::saltar()
+{
+    if (enSalto || tambaleando) return;
+    enSalto = true;
+    vy = V_SALTO;
+}
+
+bool Egan::recibirGolpe(double amplitud)
+{
+    if (amplitud <= 0)
+        throw std::invalid_argument("La amplitud del golpe debe ser positiva");
+    if (tambaleando) return false;
+
+    tambaleando = true;
+    amplitudTambaleo = amplitud;
+    tiempoTambaleo = 0;
+    ++golpes;
+    vx *= FACTOR_VELOCIDAD_GOLPE;
+    return true;
+}
+
 double Egan::getEnergia() const { return energia; }
 bool Egan::estaEnPajara() const { return enPajara; }
 double Egan::getPendiente() const { return pendiente; }
+bool Egan::estaSaltando() const { return enSalto; }
+bool Egan::estaTambaleando() const { return tambaleando; }
+int Egan::getGolpes() const { return golpes; }
+
+double Egan::getAnguloTambaleo() const
+{
+    if (!tambaleando) return 0;
+    return fisicaTambaleo.angulo(amplitudTambaleo, tiempoTambaleo);
+}

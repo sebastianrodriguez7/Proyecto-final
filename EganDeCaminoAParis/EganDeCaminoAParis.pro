@@ -7,8 +7,10 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Logica/detectorcolisiones.cpp \
     Logica/egan.cpp \
     Logica/entidad.cpp \
+    Logica/fisicaoscilatoria.cpp \
     Logica/fisicaparabolica.cpp \
     Logica/fisicapendiente.cpp \
     Logica/gestorobstaculos.cpp \
@@ -21,8 +23,10 @@ SOURCES += \
     main.cpp
 
 HEADERS += \
+    Logica/detectorcolisiones.h \
     Logica/egan.h \
     Logica/entidad.h \
+    Logica/fisicaoscilatoria.h \
     Logica/fisicaparabolica.h \
     Logica/fisicapendiente.h \
     Logica/gestorobstaculos.h \

@@ -3,6 +3,8 @@
 
 #include "entidad.h"
 #include "fisicapendiente.h"
+#include "fisicaparabolica.h"
+#include "fisicaoscilatoria.h"
 
 class Egan : public Entidad
 {
@@ -16,9 +18,16 @@ public:
     void setPendiente(double grados);
     void recuperarEnergia(double cantidad);
 
+    void saltar();
+    bool recibirGolpe(double amplitud);
+
     double getEnergia() const;
     bool estaEnPajara() const;
     double getPendiente() const;
+    bool estaSaltando() const;
+    bool estaTambaleando() const;
+    int getGolpes() const;
+    double getAnguloTambaleo() const;
 
     static constexpr double ENERGIA_MAX = 100.0;
     static constexpr double CONSUMO_PEDALEO = 15.0;
@@ -31,6 +40,10 @@ public:
     static constexpr double BONO_ESCALADOR = 1.25;
     static constexpr double VELOCIDAD_PAJARA = 0.3;
 
+    static constexpr double V_SALTO = 6.0;
+    static constexpr double DURACION_TAMBALEO = 1.5;
+    static constexpr double FACTOR_VELOCIDAD_GOLPE = 0.5;
+
 private:
     double calcularAPedal() const;
 
@@ -41,6 +54,15 @@ private:
     double tiempoPajara;
     double pendiente;
     FisicaPendiente fisica;
+
+    FisicaParabolica fisicaSalto;
+    bool enSalto;
+
+    FisicaOscilatoria fisicaTambaleo;
+    bool tambaleando;
+    double amplitudTambaleo;
+    double tiempoTambaleo;
+    int golpes;
 };
 
 #endif // EGAN_H
