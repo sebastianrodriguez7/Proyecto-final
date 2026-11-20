@@ -14,7 +14,8 @@ Egan::Egan(double x, double y, int carril, int numCarriles)
     tambaleando(false),
     amplitudTambaleo(0),
     tiempoTambaleo(0),
-    golpes(0)
+    golpes(0),
+    multiplicadorConsumo(1.0)
 {
     if (numCarriles < 1 || numCarriles > MAX_CARRILES)
         throw std::invalid_argument("Numero de carriles invalido para Egan");
@@ -40,7 +41,7 @@ void Egan::actualizar(double dt)
             energia = ENERGIA_TRAS_PAJARA;
         }
     } else if (pedaleoFuerte) {
-        energia -= CONSUMO_PEDALEO * dt;
+        energia -= CONSUMO_PEDALEO * multiplicadorConsumo * dt;
         if (energia <= 0) {
             energia = 0;
             enPajara = true;
@@ -92,6 +93,13 @@ void Egan::recuperarEnergia(double cantidad)
 {
     energia += cantidad;
     if (energia > ENERGIA_MAX) energia = ENERGIA_MAX;
+}
+
+void Egan::setMultiplicadorConsumo(double multiplicador)
+{
+    if (multiplicador <= 0)
+        throw std::invalid_argument("El multiplicador de consumo debe ser positivo");
+    multiplicadorConsumo = multiplicador;
 }
 
 void Egan::saltar()

@@ -17,6 +17,7 @@ public:
     void setPedaleoFuerte(bool activo);
     void setPendiente(double grados);
     void recuperarEnergia(double cantidad);
+    void setMultiplicadorConsumo(double multiplicador);
 
     void saltar();
     bool recibirGolpe(double amplitud);
@@ -63,6 +64,7 @@ private:
     double amplitudTambaleo;
     double tiempoTambaleo;
     int golpes;
+    double multiplicadorConsumo;
 };
 
 #endif // EGAN_H
