@@ -10,6 +10,7 @@ SOURCES += \
     Logica/detectorcolisiones.cpp \
     Logica/egan.cpp \
     Logica/entidad.cpp \
+    Logica/estrategiadificultad.cpp \
     Logica/fisicaoscilatoria.cpp \
     Logica/fisicaparabolica.cpp \
     Logica/fisicapendiente.cpp \
@@ -26,6 +27,7 @@ HEADERS += \
     Logica/detectorcolisiones.h \
     Logica/egan.h \
     Logica/entidad.h \
+    Logica/estrategiadificultad.h \
     Logica/fisicaoscilatoria.h \
     Logica/fisicaparabolica.h \
     Logica/fisicapendiente.h \
