@@ -10,11 +10,13 @@ SOURCES += \
     Logica/detectorcolisiones.cpp \
     Logica/egan.cpp \
     Logica/entidad.cpp \
+    Logica/estrategiadificultad.cpp \
     Logica/fisicaoscilatoria.cpp \
     Logica/fisicaparabolica.cpp \
     Logica/fisicapendiente.cpp \
     Logica/gestorobstaculos.cpp \
     Logica/granizo.cpp \
+    Logica/logicanivel1.cpp \
     Logica/proyectil.cpp \
     Logica/roca.cpp \
     Logica/terreno.cpp \
@@ -26,11 +28,13 @@ HEADERS += \
     Logica/detectorcolisiones.h \
     Logica/egan.h \
     Logica/entidad.h \
+    Logica/estrategiadificultad.h \
     Logica/fisicaoscilatoria.h \
     Logica/fisicaparabolica.h \
     Logica/fisicapendiente.h \
     Logica/gestorobstaculos.h \
     Logica/granizo.h \
+    Logica/logicanivel1.h \
     Logica/proyectil.h \
     Logica/roca.h \
     Logica/terreno.h \
