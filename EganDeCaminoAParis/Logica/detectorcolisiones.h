@@ -4,6 +4,7 @@
 #include "entidad.h"
 #include "egan.h"
 #include "gestorobstaculos.h"
+#include "gestorcoleccionables.h"
 
 class DetectorColisiones
 {
@@ -15,6 +16,8 @@ public:
     static bool hayColision(const Entidad &a, const Entidad &b);
 
     static int procesarGolpes(Egan &egan, const GestorObstaculos &gestor);
+
+    static int procesarRecogidas(Egan &egan, const GestorColeccionables &gestor);
 };
 
 #endif // DETECTORCOLISIONES_H

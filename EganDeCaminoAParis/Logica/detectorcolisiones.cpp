@@ -18,6 +18,19 @@ int DetectorColisiones::procesarGolpes(Egan &egan, const GestorObstaculos &gesto
             p->desactivar();
             ++registrados;
         }
-    }
+    }    
     return registrados;
+}
+
+int DetectorColisiones::procesarRecogidas(Egan &egan, const GestorColeccionables &gestor)
+{
+    int recogidos = 0;
+    for (Coleccionable *c : gestor.lista()) {
+        if (c->estaRecogido()) continue;
+        if (hayColision(egan, *c)) {
+            c->recoger(egan);
+            ++recogidos;
+        }
+    }
+    return recogidos;
 }

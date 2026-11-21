@@ -1,11 +1,13 @@
 #include "logicanivel1.h"
 #include "granizo.h"
 #include "roca.h"
+#include "bidon.h"
+#include "guitarra.h"
 #include "detectorcolisiones.h"
 #include <stdexcept>
 
 LogicaNivel1::LogicaNivel1(Dificultad dificultad, unsigned semilla)
-    : egan(0, 0, 2, NUM_CARRILES),
+    : egan(0, 0, 2, NUM_CARRILES, semilla + 1),
     estrategia(EstrategiaDificultad::crear(dificultad)),
     generador(semilla),
     estado(EstadoNivel::JUGANDO),
@@ -20,6 +22,7 @@ LogicaNivel1::LogicaNivel1(Dificultad dificultad, unsigned semilla)
 {
     egan.setMultiplicadorConsumo(estrategia->multiplicadorConsumo());
     construirTerreno();
+    construirColeccionables();
 }
 
 void LogicaNivel1::construirTerreno()
@@ -34,6 +37,17 @@ void LogicaNivel1::construirTerreno()
     terreno.agregarSegmento(30, 3);
     terreno.agregarSegmento(15, 6);
     terreno.agregarSegmento(5, 5);
+}
+
+void LogicaNivel1::construirColeccionables()
+{
+    // posición en la carretera, carril
+    const double xBidones[] = {30, 70, 110, 150, 190, 230};
+    const int carrilesBidones[] = {1, 3, 2, 1, 3, 2};
+    for (int i = 0; i < 6; ++i)
+        coleccionables.agregar(new Bidon(xBidones[i], carrilesBidones[i]));
+
+    coleccionables.agregar(new Guitarra(40, 3));
 }
 
 void LogicaNivel1::actualizar(double dt)
@@ -54,6 +68,9 @@ void LogicaNivel1::actualizar(double dt)
     gestor.actualizar(dt);
     DetectorColisiones::procesarGolpes(egan, gestor);
     descartarObstaculosAtrasados();
+    DetectorColisiones::procesarRecogidas(egan, coleccionables);
+    coleccionables.eliminarRecogidos();
+    coleccionables.descartarAntesDe(egan.getX() - DISTANCIA_DESCARTE);
 
     evaluarFin();
 }
@@ -89,7 +106,7 @@ void LogicaNivel1::lanzarGranizo(int indice)
 {
     double aviso = estrategia->tiempoAvisoGranizo();
     int carril = estrategia->elegirCarril(egan, NUM_CARRILES, indice, generador);
-    double x = egan.getX() + egan.getVx() * aviso;
+    double x = egan.getX() + egan.getVelocidadEfectiva() * aviso;
     gestor.agregar(new Granizo(x, carril, aviso));
 }
 
@@ -159,3 +176,4 @@ std::string LogicaNivel1::nombreDificultad() const { return estrategia->nombre()
 const Egan &LogicaNivel1::getEgan() const { return egan; }
 const Terreno &LogicaNivel1::getTerreno() const { return terreno; }
 const GestorObstaculos &LogicaNivel1::getGestor() const { return gestor; }
+const GestorColeccionables &LogicaNivel1::getColeccionables() const { return coleccionables; }
