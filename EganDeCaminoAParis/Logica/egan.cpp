@@ -1,7 +1,7 @@
 #include "egan.h"
 #include <stdexcept>
 
-Egan::Egan(double x, double y, int carril, int numCarriles)
+Egan::Egan(double x, double y, int carril, int numCarriles, unsigned semilla)
     : Entidad(x, y, carril),
     numCarriles(numCarriles),
     energia(ENERGIA_MAX),
@@ -15,7 +15,8 @@ Egan::Egan(double x, double y, int carril, int numCarriles)
     amplitudTambaleo(0),
     tiempoTambaleo(0),
     golpes(0),
-    multiplicadorConsumo(1.0)
+    multiplicadorConsumo(1.0),
+    generador(semilla)
 {
     if (numCarriles < 1 || numCarriles > MAX_CARRILES)
         throw std::invalid_argument("Numero de carriles invalido para Egan");
@@ -26,13 +27,14 @@ Egan::Egan(double x, double y, int carril, int numCarriles)
 double Egan::calcularAPedal() const
 {
     double a = pedaleoFuerte ? A_PEDAL_FUERTE : A_PEDAL_NORMAL;
-    if (pendiente > UMBRAL_ESCALADOR)
+    if (pendiente > UMBRAL_ESCALADOR && !sentimental.estaDesinflado())
         a *= BONO_ESCALADOR;
     return a;
 }
 
 void Egan::actualizar(double dt)
 {
+    sentimental.actualizar(dt);
 
     if (enPajara) {
         tiempoPajara -= dt;
@@ -50,7 +52,6 @@ void Egan::actualizar(double dt)
         }
     }
 
-
     if (tambaleando) {
         tiempoTambaleo += dt;
         if (tiempoTambaleo >= DURACION_TAMBALEO) {
@@ -63,7 +64,6 @@ void Egan::actualizar(double dt)
     if (enPajara && vx > VELOCIDAD_PAJARA)
         vx = VELOCIDAD_PAJARA;
 
-
     if (enSalto) {
         double xLocal = 0, vxLocal = 0;
         fisicaSalto.paso(xLocal, y, vxLocal, vy, dt);
@@ -74,13 +74,19 @@ void Egan::actualizar(double dt)
         }
     }
 
-
-    x += vx * dt;
+    x += getVelocidadEfectiva() * dt;
 }
 
 void Egan::cambiarCarril(int direccion)
 {
     if (tambaleando) return;
+
+    if (sentimental.estaActivo()) {
+        std::uniform_real_distribution<double> azar(0.0, 1.0);
+        if (azar(generador) < PROB_CRUCE_CARRIL)
+            direccion = -direccion;
+    }
+
     int nuevo = carril + direccion;
     if (nuevo >= 1 && nuevo <= numCarriles)
         carril = nuevo;
@@ -123,6 +129,8 @@ bool Egan::recibirGolpe(double amplitud)
     return true;
 }
 
+bool Egan::activarSentimental() { return sentimental.activar(); }
+
 double Egan::getEnergia() const { return energia; }
 bool Egan::estaEnPajara() const { return enPajara; }
 double Egan::getPendiente() const { return pendiente; }
@@ -134,4 +142,14 @@ double Egan::getAnguloTambaleo() const
 {
     if (!tambaleando) return 0;
     return fisicaTambaleo.angulo(amplitudTambaleo, tiempoTambaleo);
+}
+
+bool Egan::estaSentimental() const { return sentimental.estaActivo(); }
+bool Egan::estaDesinflado() const { return sentimental.estaDesinflado(); }
+double Egan::getTiempoSentimental() const { return sentimental.getTiempoActivo(); }
+double Egan::getTiempoDesinflado() const { return sentimental.getTiempoDesinflado(); }
+
+double Egan::getVelocidadEfectiva() const
+{
+    return sentimental.estaActivo() ? vx * FACTOR_VELOCIDAD_SENTIMENTAL : vx;
 }

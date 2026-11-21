@@ -7,6 +7,7 @@
 #include "egan.h"
 #include "terreno.h"
 #include "gestorobstaculos.h"
+#include "gestorcoleccionables.h"
 #include "estrategiadificultad.h"
 
 enum class EstadoNivel { JUGANDO, GANADO, PERDIDO_TIEMPO };
@@ -47,9 +48,11 @@ public:
     const Egan &getEgan() const;
     const Terreno &getTerreno() const;
     const GestorObstaculos &getGestor() const;
+    const GestorColeccionables &getColeccionables() const;
 
 private:
     void construirTerreno();
+    void construirColeccionables();
     void programarEventos();
     void lanzarGranizosPendientes(double dt);
     void lanzarGranizo(int indice);
@@ -59,6 +62,7 @@ private:
 
     Terreno terreno;
     GestorObstaculos gestor;
+    GestorColeccionables coleccionables;
     Egan egan;
     std::unique_ptr<EstrategiaDificultad> estrategia;
     std::mt19937 generador;

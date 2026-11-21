@@ -1,15 +1,18 @@
 #ifndef EGAN_H
 #define EGAN_H
 
+#include <random>
 #include "entidad.h"
 #include "fisicapendiente.h"
 #include "fisicaparabolica.h"
 #include "fisicaoscilatoria.h"
+#include "sentimental.h"
 
 class Egan : public Entidad
 {
 public:
-    Egan(double x, double y, int carril, int numCarriles);
+    Egan(double x, double y, int carril, int numCarriles,
+         unsigned semilla = std::random_device{}());
 
     void actualizar(double dt) override;
 
@@ -21,6 +24,7 @@ public:
 
     void saltar();
     bool recibirGolpe(double amplitud);
+    bool activarSentimental();
 
     double getEnergia() const;
     bool estaEnPajara() const;
@@ -29,6 +33,12 @@ public:
     bool estaTambaleando() const;
     int getGolpes() const;
     double getAnguloTambaleo() const;
+
+    bool estaSentimental() const;
+    bool estaDesinflado() const;
+    double getTiempoSentimental() const;
+    double getTiempoDesinflado() const;
+    double getVelocidadEfectiva() const;
 
     static constexpr double ENERGIA_MAX = 100.0;
     static constexpr double CONSUMO_PEDALEO = 15.0;
@@ -44,6 +54,9 @@ public:
     static constexpr double V_SALTO = 6.0;
     static constexpr double DURACION_TAMBALEO = 1.5;
     static constexpr double FACTOR_VELOCIDAD_GOLPE = 0.5;
+
+    static constexpr double FACTOR_VELOCIDAD_SENTIMENTAL = 1.2;
+    static constexpr double PROB_CRUCE_CARRIL = 0.4;
 
 private:
     double calcularAPedal() const;
@@ -65,6 +78,9 @@ private:
     double tiempoTambaleo;
     int golpes;
     double multiplicadorConsumo;
+
+    Sentimental sentimental;
+    std::mt19937 generador;
 };
 
 #endif // EGAN_H

@@ -7,6 +7,8 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Logica/bidon.cpp \
+    Logica/coleccionable.cpp \
     Logica/detectorcolisiones.cpp \
     Logica/egan.cpp \
     Logica/entidad.cpp \
@@ -14,17 +16,22 @@ SOURCES += \
     Logica/fisicaoscilatoria.cpp \
     Logica/fisicaparabolica.cpp \
     Logica/fisicapendiente.cpp \
+    Logica/gestorcoleccionables.cpp \
     Logica/gestorobstaculos.cpp \
     Logica/granizo.cpp \
+    Logica/guitarra.cpp \
     Logica/logicanivel1.cpp \
     Logica/proyectil.cpp \
     Logica/roca.cpp \
+    Logica/sentimental.cpp \
     Logica/terreno.cpp \
     gui/mainwindow.cpp \
     gui/nivel1.cpp \
     main.cpp
 
 HEADERS += \
+    Logica/bidon.h \
+    Logica/coleccionable.h \
     Logica/detectorcolisiones.h \
     Logica/egan.h \
     Logica/entidad.h \
@@ -32,11 +39,14 @@ HEADERS += \
     Logica/fisicaoscilatoria.h \
     Logica/fisicaparabolica.h \
     Logica/fisicapendiente.h \
+    Logica/gestorcoleccionables.h \
     Logica/gestorobstaculos.h \
     Logica/granizo.h \
+    Logica/guitarra.h \
     Logica/logicanivel1.h \
     Logica/proyectil.h \
     Logica/roca.h \
+    Logica/sentimental.h \
     Logica/terreno.h \
     gui/mainwindow.h \
     gui/nivel1.h
