@@ -10,6 +10,8 @@ public:
 
     double alcance(double v0, double anguloGrados) const;
 
+    double velocidadParaAlcance(double alcance, double anguloGrados) const;
+
     double getG() const;
     double getRebote() const;
 

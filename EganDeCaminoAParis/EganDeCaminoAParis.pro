@@ -8,9 +8,11 @@ CONFIG += c++17
 
 SOURCES += \
     Logica/bidon.cpp \
+    Logica/bidonlanzado.cpp \
     Logica/coleccionable.cpp \
     Logica/detectorcolisiones.cpp \
     Logica/egan.cpp \
+    Logica/egandefensor.cpp \
     Logica/entidad.cpp \
     Logica/estrategiadificultad.cpp \
     Logica/fisicaoscilatoria.cpp \
@@ -21,7 +23,9 @@ SOURCES += \
     Logica/granizo.cpp \
     Logica/guitarra.cpp \
     Logica/logicanivel1.cpp \
+    Logica/objetocarril.cpp \
     Logica/proyectil.cpp \
+    Logica/rival.cpp \
     Logica/roca.cpp \
     Logica/sentimental.cpp \
     Logica/terreno.cpp \
@@ -31,9 +35,11 @@ SOURCES += \
 
 HEADERS += \
     Logica/bidon.h \
+    Logica/bidonlanzado.h \
     Logica/coleccionable.h \
     Logica/detectorcolisiones.h \
     Logica/egan.h \
+    Logica/egandefensor.h \
     Logica/entidad.h \
     Logica/estrategiadificultad.h \
     Logica/fisicaoscilatoria.h \
@@ -44,7 +50,9 @@ HEADERS += \
     Logica/granizo.h \
     Logica/guitarra.h \
     Logica/logicanivel1.h \
+    Logica/objetocarril.h \
     Logica/proyectil.h \
+    Logica/rival.h \
     Logica/roca.h \
     Logica/sentimental.h \
     Logica/terreno.h \

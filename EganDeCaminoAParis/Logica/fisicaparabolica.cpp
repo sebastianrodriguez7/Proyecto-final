@@ -43,5 +43,15 @@ double FisicaParabolica::alcance(double v0, double anguloGrados) const
     return v0 * v0 * std::sin(2 * theta) / g;
 }
 
+double FisicaParabolica::velocidadParaAlcance(double alcance, double anguloGrados) const
+{
+    if (alcance <= 0)
+        throw std::invalid_argument("El alcance debe ser positivo");
+    double s = std::sin(2 * anguloGrados * PI / 180.0);
+    if (s <= 0)
+        throw std::invalid_argument("Angulo invalido para un lanzamiento");
+    return std::sqrt(alcance * g / s);
+}
+
 double FisicaParabolica::getG() const { return g; }
 double FisicaParabolica::getRebote() const { return e; }
