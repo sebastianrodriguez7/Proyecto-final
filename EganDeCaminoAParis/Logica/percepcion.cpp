@@ -1,3 +1,6 @@
 #include "percepcion.h"
 
-Percepcion::Percepcion() {}
+Estado Percepcion::percibir(const EganDefensor &egan) const
+{
+    return Estado(egan.getCarril(), egan.getBidones());
+}
