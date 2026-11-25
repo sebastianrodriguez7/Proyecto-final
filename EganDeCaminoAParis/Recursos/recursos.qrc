@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file>sprites/aficionado.png</file>
+        <file>sprites/bidon.png</file>
+        <file>sprites/egan_defensor.png</file>
+        <file>sprites/egan_nivel1.png</file>
+        <file>sprites/egan_nivel1_fuerte.png</file>
+        <file>sprites/egan_nivel1_pajara.png</file>
+        <file>sprites/granizo.png</file>
+        <file>sprites/guitarra.png</file>
+        <file>sprites/rival_gregario.png</file>
+        <file>sprites/rival_normal.png</file>
+        <file>sprites/rival_veloz.png</file>
+        <file>sprites/roca.png</file>
+    </qresource>
+</RCC>
