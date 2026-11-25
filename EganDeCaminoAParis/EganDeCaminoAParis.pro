@@ -7,6 +7,9 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Logica/accion.cpp \
+    Logica/agentedirector.cpp \
+    Logica/aprendizaje.cpp \
     Logica/bidon.cpp \
     Logica/bidonlanzado.cpp \
     Logica/coleccionable.cpp \
@@ -14,6 +17,7 @@ SOURCES += \
     Logica/egan.cpp \
     Logica/egandefensor.cpp \
     Logica/entidad.cpp \
+    Logica/estado.cpp \
     Logica/estrategiadificultad.cpp \
     Logica/fisicaoscilatoria.cpp \
     Logica/fisicaparabolica.cpp \
@@ -23,17 +27,24 @@ SOURCES += \
     Logica/granizo.cpp \
     Logica/guitarra.cpp \
     Logica/logicanivel1.cpp \
+    Logica/logicanivel2.cpp \
     Logica/objetocarril.cpp \
+    Logica/percepcion.cpp \
     Logica/proyectil.cpp \
+    Logica/razonamiento.cpp \
     Logica/rival.cpp \
     Logica/roca.cpp \
     Logica/sentimental.cpp \
+    Logica/tablaq.cpp \
     Logica/terreno.cpp \
     gui/mainwindow.cpp \
     gui/nivel1.cpp \
     main.cpp
 
 HEADERS += \
+    Logica/accion.h \
+    Logica/agentedirector.h \
+    Logica/aprendizaje.h \
     Logica/bidon.h \
     Logica/bidonlanzado.h \
     Logica/coleccionable.h \
@@ -41,6 +52,7 @@ HEADERS += \
     Logica/egan.h \
     Logica/egandefensor.h \
     Logica/entidad.h \
+    Logica/estado.h \
     Logica/estrategiadificultad.h \
     Logica/fisicaoscilatoria.h \
     Logica/fisicaparabolica.h \
@@ -50,11 +62,15 @@ HEADERS += \
     Logica/granizo.h \
     Logica/guitarra.h \
     Logica/logicanivel1.h \
+    Logica/logicanivel2.h \
     Logica/objetocarril.h \
+    Logica/percepcion.h \
     Logica/proyectil.h \
+    Logica/razonamiento.h \
     Logica/rival.h \
     Logica/roca.h \
     Logica/sentimental.h \
+    Logica/tablaq.h \
     Logica/terreno.h \
     gui/mainwindow.h \
     gui/nivel1.h
