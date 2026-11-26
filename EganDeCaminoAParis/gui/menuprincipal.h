@@ -15,6 +15,7 @@ public:
 
 signals:
     void jugarSolicitado(Dificultad dificultad);
+    void practicarNivel2Solicitado();
     void salirSolicitado();
 
 private slots:

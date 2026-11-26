@@ -44,11 +44,13 @@ MenuPrincipal::MenuPrincipal(QWidget *parent)
     selectorDificultad->setCurrentIndex(1);
 
     QPushButton *botonJugar = new QPushButton(QStringLiteral("Jugar"), this);
+    QPushButton *botonNivel2 = new QPushButton(QStringLiteral("Practicar nivel 2"), this);
     QPushButton *botonSalir = new QPushButton(QStringLiteral("Salir"), this);
 
     QLabel *controles = new QLabel(
-        QStringLiteral("Nivel 1:  ↑ ↓ cambian de carril   → pedalea fuerte   Espacio salta\n"
-                       "P: pausa      Esc: volver al menú"),
+        QStringLiteral("Nivel 1:  ↑ ↓ cambian de carril    → pedalea fuerte    Espacio salta\n"
+                       "Nivel 2:  ↑ ↓ cambian de carril    Espacio (mantener y soltar) lanza el bidón\n"
+                       "P: pausa      D: ver al Director (nivel 2)      Esc: volver al menú"),
         this);
     controles->setObjectName("controles");
     controles->setAlignment(Qt::AlignCenter);
@@ -61,12 +63,14 @@ MenuPrincipal::MenuPrincipal(QWidget *parent)
     disposicion->addWidget(selectorDificultad, 0, Qt::AlignCenter);
     disposicion->addSpacing(10);
     disposicion->addWidget(botonJugar, 0, Qt::AlignCenter);
+    disposicion->addWidget(botonNivel2, 0, Qt::AlignCenter);
     disposicion->addWidget(botonSalir, 0, Qt::AlignCenter);
     disposicion->addSpacing(30);
     disposicion->addWidget(controles);
     disposicion->addStretch();
 
     connect(botonJugar, &QPushButton::clicked, this, &MenuPrincipal::alPresionarJugar);
+    connect(botonNivel2, &QPushButton::clicked, this, &MenuPrincipal::practicarNivel2Solicitado);
     connect(botonSalir, &QPushButton::clicked, this, &MenuPrincipal::salirSolicitado);
 }
 
