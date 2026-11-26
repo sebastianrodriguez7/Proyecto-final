@@ -37,8 +37,13 @@ SOURCES += \
     Logica/sentimental.cpp \
     Logica/tablaq.cpp \
     Logica/terreno.cpp \
+    gui/bancosprites.cpp \
+    gui/escenanivel1.cpp \
+    gui/fabricafondos.cpp \
     gui/mainwindow.cpp \
-    gui/nivel1.cpp \
+    gui/menuprincipal.cpp \
+    gui/proyeccion.cpp \
+    gui/vistajuego.cpp \
     main.cpp
 
 HEADERS += \
@@ -72,8 +77,13 @@ HEADERS += \
     Logica/sentimental.h \
     Logica/tablaq.h \
     Logica/terreno.h \
+    gui/bancosprites.h \
+    gui/escenanivel1.h \
+    gui/fabricafondos.h \
     gui/mainwindow.h \
-    gui/nivel1.h
+    gui/menuprincipal.h \
+    gui/proyeccion.h \
+    gui/vistajuego.h
 
 FORMS += \
     gui/mainwindow.ui
@@ -83,3 +93,6 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 INCLUDEPATH += $$PWD/gui $$PWD/logica
+
+RESOURCES += \
+    Recursos/recursos.qrc
