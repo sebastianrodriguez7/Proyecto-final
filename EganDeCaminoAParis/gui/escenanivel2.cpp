@@ -95,6 +95,7 @@ EscenaNivel2::EscenaNivel2(int vidas, const QString &archivoQ, QObject *parent)
 
     connect(&temporizador, &QTimer::timeout, this, &EscenaNivel2::cuadro);
     reloj.start();
+    sonidos.iniciarMusicaFondo("musica_nivel2");
     temporizador.start(16);
 }
 
@@ -121,7 +122,6 @@ void EscenaNivel2::construirFondo()
     arboles->setPos(0, Proyeccion::nivel2Tope(1) - 140);
     arboles->setZValue(3);
 
-    // Los cinco carriles
     const QColor colores[5] = {QColor(96, 96, 104), QColor(86, 86, 94), QColor(76, 76, 84),
                                QColor(66, 66, 74), QColor(58, 58, 66)};
     for (int carril = 1; carril <= 5; ++carril) {
@@ -226,6 +226,9 @@ void EscenaNivel2::cuadro()
         logica->actualizar(dt);
     sincronizar(dt);
     actualizarHUD();
+    for (Sonido s : detectorSonidos.comparar(*logica))
+        sonidos.reproducir(s);
+    sonidos.musicaSentimental(logica->getEgan().estaSentimental());
 
     if (!resultadoMostrado && logica->getEstado() != EstadoNivel2::JUGANDO)
         mostrarResultado();
@@ -241,7 +244,8 @@ void EscenaNivel2::keyPressEvent(QKeyEvent *evento)
     case Qt::Key_Up:     if (jugando) logica->cambiarCarril(-1); break;
     case Qt::Key_Down:   if (jugando) logica->cambiarCarril(+1); break;
     case Qt::Key_Space:  if (jugando) logica->iniciarCarga(); break;
-    case Qt::Key_P:      pausado = !pausado; break;
+    case Qt::Key_P:      pausado = !pausado; sonidos.pausar(pausado); break;
+    case Qt::Key_M:      sonidos.alternarSilencio(); break;
     case Qt::Key_D:      mostrarAgente = !mostrarAgente; break;
     case Qt::Key_Escape: emit volverAlMenu(); break;
     case Qt::Key_Return:

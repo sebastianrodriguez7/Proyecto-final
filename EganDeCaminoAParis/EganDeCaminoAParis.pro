@@ -1,4 +1,4 @@
-QT += widgets
+QT += core gui widgets multimedia
 
 CONFIG += c++17
 
@@ -39,10 +39,13 @@ SOURCES += \
     Logica/terreno.cpp \
     gui/bancosprites.cpp \
     gui/escenanivel1.cpp \
+    gui/escenanivel2.cpp \
+    gui/eventossonido.cpp \
     gui/fabricafondos.cpp \
     gui/mainwindow.cpp \
     gui/menuprincipal.cpp \
     gui/proyeccion.cpp \
+    gui/sonidos.cpp \
     gui/vistajuego.cpp \
     main.cpp
 
@@ -79,10 +82,13 @@ HEADERS += \
     Logica/terreno.h \
     gui/bancosprites.h \
     gui/escenanivel1.h \
+    gui/escenanivel2.h \
+    gui/eventossonido.h \
     gui/fabricafondos.h \
     gui/mainwindow.h \
     gui/menuprincipal.h \
     gui/proyeccion.h \
+    gui/sonidos.h \
     gui/vistajuego.h
 
 FORMS += \

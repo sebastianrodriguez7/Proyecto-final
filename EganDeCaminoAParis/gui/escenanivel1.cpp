@@ -64,6 +64,7 @@ EscenaNivel1::EscenaNivel1(Dificultad dificultad, QObject *parent)
 
     connect(&temporizador, &QTimer::timeout, this, &EscenaNivel1::cuadro);
     reloj.start();
+    sonidos.iniciarMusicaFondo("musica_nivel1");
     temporizador.start(16);
 }
 
@@ -175,6 +176,9 @@ void EscenaNivel1::cuadro()
     }
     sincronizar(dt);
     actualizarHUD();
+    for (Sonido s : detectorSonidos.comparar(*logica))
+        sonidos.reproducir(s);
+    sonidos.musicaSentimental(logica->getEgan().estaSentimental());
 
     if (!resultadoMostrado && logica->getEstado() != EstadoNivel::JUGANDO)
         mostrarResultado();
@@ -190,7 +194,8 @@ void EscenaNivel1::keyPressEvent(QKeyEvent *evento)
     case Qt::Key_Down:   logica->cambiarCarril(+1); break;
     case Qt::Key_Right:  teclaFuerte = true; break;
     case Qt::Key_Space:  logica->saltar(); break;
-    case Qt::Key_P:      pausado = !pausado; break;
+    case Qt::Key_P:      pausado = !pausado; sonidos.pausar(pausado); break;
+    case Qt::Key_M:      sonidos.alternarSilencio(); break;
     case Qt::Key_Escape: emit volverAlMenu(); break;
     case Qt::Key_Return:
     case Qt::Key_Enter:
@@ -388,12 +393,10 @@ void EscenaNivel1::actualizarHUD()
                             + QString::number(static_cast<int>(std::lround(logica->getPendienteActual())))
                             + QStringLiteral("°"));
 
-    // Barra de energía: verde, y roja cuando queda poca
     double fraccion = std::min(1.0, std::max(0.0, egan.getEnergia() / Egan::ENERGIA_MAX));
     barraRelleno->setRect(132, 58, 256 * fraccion, 20);
     barraRelleno->setBrush(QBrush(fraccion < 0.25 ? QColor(220, 60, 50) : QColor(80, 200, 90)));
 
-    // Aviso central
     QString aviso;
     QColor color(255, 255, 255);
     if (pausado) {

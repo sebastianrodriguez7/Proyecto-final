@@ -8,6 +8,8 @@
 #include <QString>
 #include <QTimer>
 #include "logicanivel2.h"
+#include "eventossonido.h"
+#include "sonidos.h"
 
 class QGraphicsEllipseItem;
 class QGraphicsPixmapItem;
@@ -82,6 +84,8 @@ private:
     bool resultadoMostrado;
     bool mostrarAgente;
     double carrilVisual;
+    Sonidos sonidos;
+    DetectorSonidosNivel2 detectorSonidos;
 
     QGraphicsPixmapItem *spriteEgan;
     QGraphicsEllipseItem *sombraEgan;

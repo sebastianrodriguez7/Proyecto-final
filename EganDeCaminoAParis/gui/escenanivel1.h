@@ -8,6 +8,8 @@
 #include <QString>
 #include <QTimer>
 #include "logicanivel1.h"
+#include "eventossonido.h"
+#include "sonidos.h"
 
 class QGraphicsEllipseItem;
 class QGraphicsPixmapItem;
@@ -75,6 +77,8 @@ private:
     bool teclaFuerte;
     bool resultadoMostrado;
     double carrilVisual;
+    Sonidos sonidos;
+    DetectorSonidosNivel1 detectorSonidos;
 
     std::vector<Capa> capas;
     QGraphicsPixmapItem *spriteEgan;
