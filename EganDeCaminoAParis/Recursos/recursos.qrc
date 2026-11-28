@@ -12,5 +12,21 @@
         <file>sprites/rival_normal.png</file>
         <file>sprites/rival_veloz.png</file>
         <file>sprites/roca.png</file>
+        <file>audio/aficionado.wav</file>
+        <file>audio/bidon.wav</file>
+        <file>audio/derrota.wav</file>
+        <file>audio/desinflado.wav</file>
+        <file>audio/golpe.wav</file>
+        <file>audio/guitarra.wav</file>
+        <file>audio/impacto.wav</file>
+        <file>audio/lanzar.wav</file>
+        <file>audio/musica_nivel1.wav</file>
+        <file>audio/musica_nivel2.wav</file>
+        <file>audio/musica_sentimental.wav</file>
+        <file>audio/pajara.wav</file>
+        <file>audio/rival_detenido.wav</file>
+        <file>audio/salto.wav</file>
+        <file>audio/victoria.wav</file>
+        <file>audio/vida_perdida.wav</file>
     </qresource>
 </RCC>
